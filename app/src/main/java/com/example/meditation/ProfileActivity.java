@@ -54,26 +54,6 @@ public class ProfileActivity extends AppCompatActivity {
         new AdapterQuete.DownloadImageTask((ImageView) image).execute(MainActivity.image);
     }
 
-    private void ImgProfile() {
-        list.clear();
-        pAdapter.notifyDataSetInvalidated();
-        String path = getApplicationInfo().dataDir + "/MyFiles";
-        File directory = new File(path);
-        File[] files = directory.listFiles();
-        int j = 0;
-        /*for (int i = 0; i < files.length; i++) {
-            Long last = files[i].lastModified();
-            MaskPhoto tempProduct = new MaskPhoto(
-                    j,
-                    files[i].getAbsolutePath(),
-                    files[i],
-                    getFullTime(last)
-            );
-            list.add(tempProduct);
-            pAdapter.notifyDataSetInvalidated();
-        }*/
-    }
-
     public void NextMenu(View view) {
         startActivity(new Intent(this, MenuActivity.class));
     }
@@ -85,7 +65,15 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(new Intent(this, LoginActivity.class));
     }
 
-    public void addImage()
+    public void NextListen(View view) {
+        startActivity(new Intent(this, ListenActivity.class));
+    }
+
+    public void NextFeeling(View view) {
+        startActivity(new Intent(this, MainMenuActivity.class));
+    }
+
+    public void addImage() //добавление фото
     {
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
@@ -112,7 +100,7 @@ public class ProfileActivity extends AppCompatActivity {
                         dir.mkdirs();
                         File file = new File(dir, System.currentTimeMillis() + ".jpg");
                         try {
-                            Stream = new FileOutputStream(file);
+                            Stream = new FileOutputStream(file); //отправка в файл на диске
                             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, Stream);
                             Stream.flush();
                             Stream.close();
@@ -128,19 +116,42 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             });
 
-    public void NextListen(View view) {
-        startActivity(new Intent(this, ListenActivity.class));
+    private void ImgProfile() { //заполнение картинок
+        File pathIm = new File(getApplicationInfo().dataDir + "/MyFiles/");
+        pathIm.mkdirs();
+        list.clear();
+        pAdapter.notifyDataSetInvalidated();
+        String path = getApplicationInfo().dataDir + "/MyFiles";
+        File directory = new File(path);
+        File[] file = directory.listFiles();
+        int j = 0;
+        for(int i=0;i<file.length;i++){
+            Long last = file[i].lastModified();
+            MaskPhoto img = new MaskPhoto(
+                    j,
+                    file[i].getAbsolutePath(),
+                    file[i],
+                    getFullTime(last)
+            );
+            list.add(img);
+            pAdapter.notifyDataSetInvalidated();
+        }
+        //последний элемент кнопка
+        MaskPhoto img = new MaskPhoto(
+                j,
+                null,
+                null,
+                "null"
+        );
+        list.add(img);
+        pAdapter.notifyDataSetInvalidated();
     }
-
-    public void NextFeeling(View view) {
-        startActivity(new Intent(this, MainMenuActivity.class));
-    }
-
+    //преобразование в формат часы и минуты
     private static final String getFullTime(final long timeInMillis) {
         final SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-        final Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(timeInMillis);
-        c.setTimeZone(TimeZone.getDefault());
-        return format.format(c.getTime());
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timeInMillis);
+        calendar.setTimeZone(TimeZone.getDefault());
+        return format.format(calendar.getTime());
     }
 }

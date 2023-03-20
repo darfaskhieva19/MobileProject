@@ -40,16 +40,19 @@ public class AdapterPhoto extends BaseAdapter
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        MaskPhoto maskImage = maskList.get(position);
+        MaskPhoto maskImage  = maskList.get(position);
         View v = null;
-        if(maskImage.getImageProfile()==null){
-            v = View.inflate(mContext, R.layout.item_photo,null);
+        if(maskImage.getImageProfile() == null) //если нет картинки, то последний элемент
+        {
+            v = View.inflate(mContext,R.layout.photo_add,null); //выводится кнопка
         }
-        else{
-            v = View.inflate(mContext,R.layout.item_photo,null);
+        else
+        {
+            v = View.inflate(mContext,R.layout.item_photo,null); //вывод формы
+
             ImageView Image = v.findViewById(R.id.image);
             TextView dateCreate = v.findViewById(R.id.Create);
+
             if(maskImage.getImageProfile().exists()){
                 Bitmap myBitmap = BitmapFactory.decodeFile(maskImage.getImageProfile().getAbsolutePath());
                 Image.setImageBitmap(myBitmap);
