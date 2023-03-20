@@ -44,7 +44,7 @@ public class AdapterPhoto extends BaseAdapter
         View v = null;
         if(maskImage.getImageProfile() == null) //если нет картинки, то последний элемент
         {
-            v = View.inflate(mContext,R.layout.photo_add,null); //выводится кнопка
+            v = View.inflate(mContext,R.layout.item_profile_photo, null); //выводится кнопка
         }
         else
         {

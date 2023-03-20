@@ -16,7 +16,6 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 public class PhotoActivity extends AppCompatActivity {
 
     SubsamplingScaleImageView imageView;
-    //ImageView img;
     View view;
 
     @Override
@@ -29,9 +28,6 @@ public class PhotoActivity extends AppCompatActivity {
 
             Bitmap myBitmap = BitmapFactory.decodeFile(ProfileActivity.maskImage.getImageProfile().getAbsolutePath());
             imageView.setImage(ImageSource.bitmap(myBitmap));
-
-            /*Bitmap myBitmap = BitmapFactory.decodeFile(ProfileActivity.maskImage.getImageProfile().getAbsolutePath());
-            img.setImage(myBitmap);*/
         }
         view = findViewById(R.id.view);
 

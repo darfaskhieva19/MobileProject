@@ -20,7 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/btn_color"
             android:textColor="@color/white"
-            android:textSize="30dp"
+            android:textSize="28dp"
             android:text="+"
             android:fontFamily="@font/alegreya_sans_medium"
             android:gravity="center"/>
